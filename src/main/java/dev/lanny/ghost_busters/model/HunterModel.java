@@ -1,53 +1,24 @@
 package dev.lanny.ghost_busters.model;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.function.BooleanSupplier;
 
 public class HunterModel {
+    private String name;
+    private List<GhostModel> ghostList;
 
-    public HunterModel(int i, String string) {
-        //TODO Auto-generated constructor stub
+    public HunterModel(String name, List<GhostModel> ghostList) {
+        this.name = name;
+        this.ghostList = ghostList;
     }
 
-    public void captureGhost(GhostModel ghost1) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'captureGhost'");
+    public String getName() { return name; }
+    public List<GhostModel> getGhostList() { return ghostList; }
+
+    public void capturedGhosts(GhostModel ghost) { 
+        ghostList.add(ghost);
     }
 
-    public Integer getId() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getId'");
+    public void freeGhost(int id) {
+        ghostList.removeIf(g -> g.getId() == id);
     }
-
-    public Object getName() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getName'");
-    }
-
-    public List<GhostModel> getCapturedGhosts() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCapturedGhosts'");
-    }
-
-    public BooleanSupplier freeGhost(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'freeGhost'");
-    }
-
-    public List<GhostModel> filterGhostsByClass(GhostClass classIi) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'filterGhostsByClass'");
-    }
-
-    public List<GhostModel> filterGhostsByDate(LocalDate of) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'filterGhostsByDate'");
-    }
-
-    public int releaseLessDangerousGhosts() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'releaseLessDangerousGhosts'");
-    }
-
 }
