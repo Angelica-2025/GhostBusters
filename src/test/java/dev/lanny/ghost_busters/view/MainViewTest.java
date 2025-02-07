@@ -9,7 +9,7 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 import dev.lanny.ghost_busters.controller.HunterController;
 import dev.lanny.ghost_busters.model.HunterModel;
-import dev.lanny.ghost_busters.view.MainView;
+
 
 
 import java.util.ArrayList;
