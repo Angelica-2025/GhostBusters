@@ -11,7 +11,7 @@ import dev.lanny.ghost_busters.model.GhostModel;
 import dev.lanny.ghost_busters.model.GhostClass;
 import dev.lanny.ghost_busters.model.HunterModel;
 import dev.lanny.ghost_busters.model.ThreatLevel;
-import dev.lanny.ghost_busters.view.ListGhostsView;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,14 +1,14 @@
 package dev.lanny.ghost_busters.model;
+
 import java.util.ArrayList;
 import java.util.List;
-
-
+import java.util.stream.Collectors;
 
 public class HunterModel {
     private String name;
     private List<GhostModel> capturedGhosts;
 
-    public HunterModel(String name, ArrayList<GhostModel> capturedGhosts) {
+    public HunterModel(String name, List<GhostModel> capturedGhosts) {
         this.name = name;
         this.capturedGhosts = capturedGhosts != null ? capturedGhosts : new ArrayList<>();
     }
@@ -19,6 +19,7 @@ public class HunterModel {
         }
     }
 
+
     public List<GhostModel> getCapturedGhosts() {
         return new ArrayList<>(capturedGhosts);
     }
@@ -27,5 +28,5 @@ public class HunterModel {
         return capturedGhosts.removeIf(ghost -> ghost.getId() == ghostId);
     }
 
+   
 }
-
