@@ -1,53 +1,36 @@
 package dev.lanny.ghost_busters.model;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import java.util.ArrayList;
 
-
-public class HunterModelTest {
-
+class HunterModelTest {
     private HunterModel hunter;
-    private List<GhostModel> ghostList;
+    private GhostModel ghost1;
+    private GhostModel ghost2;
 
     @BeforeEach
-    public void setUp() {
-        ghostList = new ArrayList<>();
-        hunter = new HunterModel("Hunter A", ghostList);
+    void setUp() {
+        hunter = new HunterModel("Peter Venkman");
+        ghost1 = new GhostModel("Spirit A", GhostClass.CLASS_I, ThreatLevel.LOW, "Whispering", "2025-02-01");
+        ghost2 = new GhostModel("Spirit B", GhostClass.CLASS_I, ThreatLevel.LOW, "Whispering", "2025-02-01");
     }
 
     @Test
-    public void testCapturedGhosts_Success() {   
-        GhostModel ghost = new GhostModel("Ghost A", GhostClass.CLASS_I, ThreatLevel.LOW, "Ability", "2025-03-15");    
-        hunter.capturedGhosts(ghost);
-        assertThat(hunter.getGhostList(), hasItem(ghost));
-        assertThat(hunter.getGhostList().size(), is(1));
+    void testCaptureGhost() {
+        hunter.captureGhost(ghost1);
+        assertEquals(1, hunter.getAllGhosts().size());
+        assertTrue(hunter.getAllGhosts().contains(ghost1));
     }
 
     @Test
-    public void testFreeGhost_Success() {        
-        GhostModel ghost1 = new GhostModel("Ghost A", GhostClass.CLASS_I, ThreatLevel.LOW, "Ability", "2025-03-15");
-        GhostModel ghost2 = new GhostModel("Ghost B", GhostClass.CLASS_II, ThreatLevel.HIGH, "Ability", "2025-03-16");
-        hunter.capturedGhosts(ghost1);
-        hunter.capturedGhosts(ghost2);
-        hunter.freeGhost(ghost1.getId());
-        assertThat(hunter.getGhostList(), not(hasItem(ghost1)));
-        assertThat(hunter.getGhostList(), hasItem(ghost2));
-        assertThat(hunter.getGhostList().size(), is(1));
+    void testGetAllGhosts() {
+        hunter.captureGhost(ghost1);
+        hunter.captureGhost(ghost2);
+        List<GhostModel> ghosts = hunter.getAllGhosts();
+        assertEquals(2, ghosts.size());
     }
 
-    @Test
-    public void testFreeGhost_InvalidId() {       
-        GhostModel ghost = new GhostModel("Ghost A", GhostClass.CLASS_I, ThreatLevel.LOW, "Ability", "2025-03-15");
-        hunter.capturedGhosts(ghost);       
-        hunter.freeGhost(999);
-        assertThat(hunter.getGhostList().size(), is(1));
-        assertThat(hunter.getGhostList(), hasItem(ghost));
-    }
+    
 }
-
-
