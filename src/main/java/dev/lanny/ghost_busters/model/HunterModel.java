@@ -7,24 +7,25 @@ public class HunterModel {
     private String name;
     private List<GhostModel> capturedGhosts;
 
-    public HunterModel(String name) {
+    public HunterModel(String name, ArrayList<GhostModel> capturedGhosts) {
         this.name = name;
-        this.capturedGhosts = new ArrayList<>();
+        this.capturedGhosts = capturedGhosts != null ? capturedGhosts : new ArrayList<>();
     }
 
     public void captureGhost(GhostModel ghost) {
         if (ghost != null) {
             capturedGhosts.add(ghost);
-            System.out.println("Fantasma capturado: " + ghost.getName());
         }
     }
 
-    public List<GhostModel> getAllGhosts() {
+    public List<GhostModel> getCapturedGhosts() {
         return new ArrayList<>(capturedGhosts);
     }
 
-
-    public String getName() {
-        return name;
+    public boolean freeGhost(int ghostId) {
+        return capturedGhosts.removeIf(ghost -> ghost.getId() == ghostId);
     }
+    
+
 }
+
