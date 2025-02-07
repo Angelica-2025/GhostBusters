@@ -2,6 +2,7 @@ package dev.lanny.ghost_busters.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 public class GhostModel {
     private static int idCounter = 1;
@@ -13,47 +14,34 @@ public class GhostModel {
     private final String specialAbility;
     private final LocalDate captureDate;
 
-    public GhostModel(String name, GhostClass ghostClass, ThreatLevel threatLevel, String specialAbility, String captureDate) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("El nombre del fantasma no puede estar vacío.");
+    public GhostModel(final String name, final GhostClass ghostClass, final ThreatLevel threatLevel, final String specialAbility, final String captureDate) {
+        this.id = idCounter++;
+        this.name = validateNotEmpty(name, "El nombre del fantasma no puede estar vacío.");
+        this.ghostClass = Objects.requireNonNull(ghostClass, "La clase del fantasma no puede ser nula.");
+        this.threatLevel = Objects.requireNonNull(threatLevel, "El nivel de amenaza no puede ser nulo."); // ✅ Validación corregida
+        this.specialAbility = validateNotEmpty(specialAbility, "La habilidad especial no puede estar vacía.");
+        this.captureDate = parseCaptureDate(captureDate);
+    }
+
+    private String validateNotEmpty(String value, String errorMessage) {
+        if (value == null || value.trim().isEmpty()) {
+            throw new IllegalArgumentException(errorMessage);
         }
-        if (specialAbility == null || specialAbility.trim().isEmpty()) {
-            throw new IllegalArgumentException("La habilidad especial no puede estar vacía.");
-        }
+        return value;
+    }
+
+    private LocalDate parseCaptureDate(String date) {
         try {
-            this.captureDate = LocalDate.parse(captureDate);
+            return LocalDate.parse(date);
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("La fecha debe estar en formato YYYY-MM-DD.");
         }
-
-        this.id = idCounter++;
-        this.name = name;
-        this.ghostClass = ghostClass;
-        this.threatLevel = threatLevel;
-        this.specialAbility = specialAbility;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public GhostClass getGhostClass() {
-        return ghostClass;
-    }
-
-    public ThreatLevel getThreatLevel() {
-        return threatLevel;
-    }
-
-    public String getSpecialAbility() {
-        return specialAbility;
-    }
-
-    public LocalDate getCaptureDate() {
-        return captureDate;
-    }
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public GhostClass getGhostClass() { return ghostClass; }
+    public ThreatLevel getThreatLevel() { return threatLevel; }
+    public String getSpecialAbility() { return specialAbility; }
+    public LocalDate getCaptureDate() { return captureDate; }
 }

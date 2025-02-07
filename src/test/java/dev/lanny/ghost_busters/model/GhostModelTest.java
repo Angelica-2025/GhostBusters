@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GhostModelTest {
     @Test
@@ -34,6 +37,30 @@ public class GhostModelTest {
 
         assertThat(exception.getMessage(), containsString("La fecha debe estar en formato YYYY-MM-DD."));
     }
+
+    @Test
+void testNullGhostClassThrowsException() {
+    Exception exception = assertThrows(NullPointerException.class, () -> {
+        new GhostModel("Phantom", null, ThreatLevel.HIGH, "Invisibility", "2025-02-07");
+    });
+    assertEquals("La clase del fantasma no puede ser nula.", exception.getMessage());
+}
+
+@Test
+void testNullThreatLevelThrowsException() {
+    Exception exception = assertThrows(NullPointerException.class, () -> {
+        new GhostModel("Phantom", GhostClass.CLASS_VI, null, "Invisibility", "2025-02-07");
+    });
+    assertEquals("El nivel de amenaza no puede ser nulo.", exception.getMessage());
+}
+
+@Test
+void testUniqueIDs() {
+    GhostModel ghost1 = new GhostModel("Phantom", GhostClass.CLASS_VI, ThreatLevel.HIGH, "Invisibility", "2025-02-07");
+    GhostModel ghost2 = new GhostModel("Specter", GhostClass.CLASS_II, ThreatLevel.MEDIUM, "Phasing", "2025-02-07");
+    assertNotEquals(ghost1.getId(), ghost2.getId());
+}
+
 }
 
 
