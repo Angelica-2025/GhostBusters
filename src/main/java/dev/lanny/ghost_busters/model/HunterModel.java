@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class HunterModel {
     private String name;
     private List<GhostModel> capturedGhosts;
@@ -25,7 +26,6 @@ public class HunterModel {
     public boolean freeGhost(int ghostId) {
         return capturedGhosts.removeIf(ghost -> ghost.getId() == ghostId);
     }
-    
 
 }
 
