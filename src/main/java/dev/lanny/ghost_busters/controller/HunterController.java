@@ -1,6 +1,7 @@
 package dev.lanny.ghost_busters.controller;
+
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 import dev.lanny.ghost_busters.model.GhostClass;
 import dev.lanny.ghost_busters.model.GhostModel;
@@ -24,13 +25,8 @@ public class HunterController {
         hunter.captureGhost(ghost1);
     }
 
-    // Method to filter ghosts by class
     public List<GhostModel> filterGhostsByClass(GhostClass ghostClass) {
-        return hunterModel.getCapturedGhosts().stream()
-                .filter(ghost -> ghost.getGhostClass() == ghostClass)
-                .collect(Collectors.toList());
+        return hunter.filterGhostsByClass(ghostClass);
     }
 
 }
-   
-

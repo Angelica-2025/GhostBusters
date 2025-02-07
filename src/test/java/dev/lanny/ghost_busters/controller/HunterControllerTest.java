@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 
-
 import java.util.List;
 import java.util.ArrayList;
 
@@ -18,12 +17,13 @@ import dev.lanny.ghost_busters.model.GhostModel;
 import dev.lanny.ghost_busters.model.HunterModel;
 import dev.lanny.ghost_busters.model.ThreatLevel;
 
-
 public class HunterControllerTest {
 
     private HunterModel hunterModel;
     private HunterController hunterController;
     private GhostModel ghost1;
+    private GhostModel ghost2;
+    private GhostModel ghost3;
 
     @BeforeEach
     public void setUp() {
@@ -31,6 +31,8 @@ public class HunterControllerTest {
         hunterController = new HunterController(hunterModel);
         ghost1 = new GhostModel("Marinero", GhostClass.CLASS_I, ThreatLevel.MEDIUM, "Aparece en tormentas",
                 "2025-02-03");
+        ghost2 = new GhostModel("Specter", GhostClass.CLASS_II, ThreatLevel.MEDIUM, "Invisibility", "2025-02-12");
+        ghost3 = new GhostModel("Wraith", GhostClass.CLASS_I, ThreatLevel.HIGH, "Ethereal", "2025-02-14");
     }
 
     @Test
@@ -57,9 +59,22 @@ public class HunterControllerTest {
         assertThat(capturedGhosts, contains(ghost));
     }
 
+    @Test
+public void testFilterGhostsByClass() {
     
+    hunterController.captureGhost(ghost1);  
+    hunterController.captureGhost(ghost3);  
+ 
+    List<GhostModel> filteredGhosts = hunterController.filterGhostsByClass(GhostClass.CLASS_I);    
+    assertThat(filteredGhosts.size(), is(2)); 
+    assertThat(filteredGhosts.get(0).getName(), is("Marinero"));
+    assertThat(filteredGhosts.get(1).getName(), is("Wraith"));
+}
+    @Test
+    public void testFilterGhostsByClass_NoMatches() {
 
-    
+        List<GhostModel> filteredGhosts = hunterController.filterGhostsByClass(GhostClass.CLASS_III);
+        assertThat(filteredGhosts.isEmpty(), is(true));
+    }
 
-    
 }
