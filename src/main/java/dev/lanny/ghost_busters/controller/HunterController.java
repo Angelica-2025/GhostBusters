@@ -1,5 +1,8 @@
 package dev.lanny.ghost_busters.controller;
 
+import java.util.List;
+
+import dev.lanny.ghost_busters.model.GhostModel;
 import dev.lanny.ghost_busters.model.HunterModel;
 
 public class HunterController {
@@ -13,9 +16,11 @@ public class HunterController {
         throw new UnsupportedOperationException("Unimplemented method 'captureGhost'");
     }
 
-    public Object getCapturedGhosts() {
    
-        throw new UnsupportedOperationException("Unimplemented method 'getCapturedGhosts'");
+
+    public List<GhostModel> getAllGhosts() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAllGhosts'");
     }
 
    
