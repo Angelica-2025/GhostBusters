@@ -28,5 +28,9 @@ public class HunterModel {
         return capturedGhosts.removeIf(ghost -> ghost.getId() == ghostId);
     }
 
-   
+    public List<GhostModel> filterGhostsByClass(GhostClass ghostClass) {
+        return capturedGhosts.stream()
+        .filter(ghost -> ghost.getGhostClass() == ghostClass)
+        .collect(Collectors.toList());
+    }
 }
