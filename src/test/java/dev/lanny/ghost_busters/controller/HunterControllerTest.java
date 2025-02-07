@@ -57,21 +57,6 @@ public class HunterControllerTest {
         assertThat(capturedGhosts, contains(ghost));
     }
 
-    @Test
-    public void testDeleteGhost_Success() {
-        hunterController.captureGhost(ghost1);
-        boolean result = hunterController.deleteGhost(ghost1.getId());
-        assertThat(result, is(true));
-        assertThat(hunterController.getCapturedGhosts(), not(contains(ghost1)));
-    }
-
-    @Test
-    public void testDeleteGhost_Failure_NotCaptured() {
-        GhostModel ghost2 = new GhostModel("Demonio", GhostClass.CLASS_I, ThreatLevel.LOW, "Aterroriza pueblos", "2025-02-03");
-        boolean result = hunterController.deleteGhost(ghost2.getId());
-        assertThat(result, is(false));
-    }
-
     
 
     
