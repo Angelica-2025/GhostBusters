@@ -15,8 +15,6 @@ import dev.lanny.ghost_busters.model.GhostClass;
 import dev.lanny.ghost_busters.model.ThreatLevel;
 import static org.hamcrest.Matchers.containsString;
 
-
-
 public class FilterGhostsViewTest {
     private HunterController hunterController;
     private ByteArrayOutputStream outputStream;
@@ -37,36 +35,30 @@ public class FilterGhostsViewTest {
         scanner = new Scanner(System.in);
 
         FilterGhostsView.filterGhostsByClass(hunterController, scanner);
-        
-        // Capturar la salida impresa en consola
+
         String output = outputStream.toString();
 
-        // Verificar que el mensaje esperado está presente en la salida
         assertThat(output, containsString("❌ No hay fantasmas de esta clase capturados."));
     }
 
     @Test
-public void testFilterGhostsByClass_WithGhosts() {
-    // ✅ Se asegura que el fantasma capturado tiene la misma clase que la que será filtrada
-    GhostModel ghost = new GhostModel("Marinero", GhostClass.CLASS_II, ThreatLevel.MEDIUM, 
-    "Aparece en tormentas", "2025-01-26");
-    hunterController.captureGhost(ghost);
-    
-    String simulatedInput = "CLASS_II\n"; // ✅ Se filtra por la misma clase del fantasma
-    System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
-    scanner = new Scanner(System.in);
-    
-    FilterGhostsView.filterGhostsByClass(hunterController, scanner);
+    public void testFilterGhostsByClass_WithGhosts() {
+        GhostModel ghost = new GhostModel("Marinero", GhostClass.CLASS_II, ThreatLevel.MEDIUM,
+                "Aparece en tormentas", "2025-01-26");
+        hunterController.captureGhost(ghost);
 
-    // Capturar la salida después de ejecutar la funcionalidad
-    String output = outputStream.toString();
+        String simulatedInput = "CLASS_II\n";
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        scanner = new Scanner(System.in);
 
-    // ✅ Se verifica que el mensaje sea el correcto según la clase del fantasma
-    assertThat(output, containsString("Fantasmas de clase CLASS_II - Aparición móvil capturados:"));
-    assertThat(output, containsString("- Marinero (Peligrosidad: MEDIUM - Amenaza de nivel medio)"));
-}
+        FilterGhostsView.filterGhostsByClass(hunterController, scanner);
 
-    
+        String output = outputStream.toString();
+
+        assertThat(output, containsString("Fantasmas de clase CLASS_II - Aparición móvil capturados:"));
+        assertThat(output, containsString("- Marinero (Peligrosidad: MEDIUM - Amenaza de nivel medio)"));
+    }
+
     @Test
     public void testFilterGhostsByClass_InvalidClass() {
         String simulatedInput = "INVALID_CLASS\n";
@@ -74,13 +66,8 @@ public void testFilterGhostsByClass_WithGhosts() {
         scanner = new Scanner(System.in);
 
         FilterGhostsView.filterGhostsByClass(hunterController, scanner);
-
-        // Capturar la salida después de ejecutar la funcionalidad
         String output = outputStream.toString();
 
-        // Verificar que la salida muestra correctamente el mensaje de error
         assertThat(output, containsString("❌ Clase de fantasma no válida. Intente de nuevo."));
     }
 }
-
-
