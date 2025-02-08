@@ -1,5 +1,6 @@
 package dev.lanny.ghost_busters.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,10 +34,14 @@ public class HunterModel {
                 .collect(Collectors.toList());
     }
 
-    public List<GhostModel> filterGhostsByMonth(int i, int j) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'filterGhostsByMonth'");
-    }
+    public List<GhostModel> filterGhostsByMonth(int month, int year) {
+    return capturedGhosts.stream()
+            .filter(ghost -> {
+                LocalDate date = ghost.getCaptureDate();
+                return date != null && date.getMonthValue() == month && date.getYear() == year;
+            })
+            .collect(Collectors.toList());
+}
 
     
 }

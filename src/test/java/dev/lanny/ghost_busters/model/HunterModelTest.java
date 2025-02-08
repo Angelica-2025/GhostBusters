@@ -20,16 +20,20 @@ class HunterModelTest {
     private GhostModel ghost3;
 
     @BeforeEach
-    @DisplayName("Configuración inicial de HunterModel con fantasmas capturados")
+    @DisplayName("Configuración inicial de HunterModel para pruebas")
     void setUp() {
-        ghost1 = new GhostModel("Phantom", GhostClass.CLASS_I, ThreatLevel.LOW, "Whispering", "2025-02-10");
-        ghost2 = new GhostModel("Specter", GhostClass.CLASS_II, ThreatLevel.MEDIUM, "Invisibility", "2025-02-12");
-        ghost3 = new GhostModel("Wraith", GhostClass.CLASS_I, ThreatLevel.HIGH, "Ethereal", "2025-02-14");
+        ghost1 = new GhostModel("Espíritu del Mar", GhostClass.CLASS_II, ThreatLevel.MEDIUM, "Aparece en tormentas",
+                "2025-01-15");
+        ghost2 = new GhostModel("Sombra del Monte", GhostClass.CLASS_IV, ThreatLevel.HIGH, "Ecos fantasmales",
+                "2025-01-28");
+        ghost3 = new GhostModel("Espectro de la Mina", GhostClass.CLASS_VI, ThreatLevel.LOW, "Sombras", "2024-12-05");
+
         List<GhostModel> capturedGhosts = new ArrayList<>();
-        hunterModel = new HunterModel("Carlos", capturedGhosts);
         capturedGhosts.add(ghost1);
         capturedGhosts.add(ghost2);
         capturedGhosts.add(ghost3);
+
+        hunterModel = new HunterModel("Egon Spengler", capturedGhosts);
     }
 
     @Test
@@ -42,13 +46,12 @@ class HunterModelTest {
     }
 
     @Test
-    @DisplayName("Validar que no se puede capturar un fantasma nulo")
-    public void testFilterGhostsByClass() {
+    @DisplayName("Validar que se filtran correctamente los fantasmas por clase")
+    void testFilterGhostsByClass() {
+        List<GhostModel> filteredGhosts = hunterModel.filterGhostsByClass(GhostClass.CLASS_II);
 
-        List<GhostModel> filteredGhosts = hunterModel.filterGhostsByClass(GhostClass.CLASS_I);
-        assertThat(filteredGhosts.size(), is(2));
-        assertThat(filteredGhosts.get(0).getName(), is("Phantom"));
-        assertThat(filteredGhosts.get(1).getName(), is("Wraith"));
+        assertThat(filteredGhosts.size(), is(1));
+        assertThat(filteredGhosts.get(0).getName(), is("Espíritu del Mar"));
     }
 
     @Test
@@ -63,8 +66,8 @@ class HunterModelTest {
     @DisplayName("Validar que getCapturedGhosts devuelve una copia de la lista")
     void testGetCapturedGhosts_Immutable() {
         List<GhostModel> capturedGhosts = hunterModel.getCapturedGhosts();
-        capturedGhosts.clear(); 
-        assertThat(hunterModel.getCapturedGhosts(), hasSize(3)); 
+        capturedGhosts.clear();
+        assertThat(hunterModel.getCapturedGhosts(), hasSize(3));
     }
 
     @Test
@@ -80,6 +83,7 @@ class HunterModelTest {
     @DisplayName("Filtrar fantasmas por mes y año con resultados")
     public void testFilterGhostsByMonth_WithResults() {
         List<GhostModel> filteredGhosts = hunterModel.filterGhostsByMonth(1, 2025);
+
         assertThat(filteredGhosts, hasSize(2));
         assertThat(filteredGhosts, contains(ghost1, ghost2));
     }
