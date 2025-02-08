@@ -106,6 +106,30 @@ public class HunterControllerTest {
         List<GhostModel> filteredGhosts = hunterController.filterGhostsByClass(GhostClass.CLASS_I);
         assertThat(filteredGhosts.isEmpty(), is(true));
     }
-
+    @Test
+    @DisplayName("Validar filtrado de fantasmas por mes y año")
+    public void testFilterGhostsByMonth_WithResults() {
+        
+        GhostModel ghost1 = new GhostModel("Espectro del Faro", GhostClass.CLASS_I, ThreatLevel.MEDIUM, "Luz fantasma", "2025-02-10");
+        GhostModel ghost2 = new GhostModel("Sombras del Castillo", GhostClass.CLASS_III, ThreatLevel.HIGH, "Ecos de la historia", "2025-02-15");
+        GhostModel ghost3 = new GhostModel("Fantasma de la Mina", GhostClass.CLASS_VI, ThreatLevel.LOW, "Aparición espectral", "2024-12-05");
+    
+        hunterController.captureGhost(ghost1);
+        hunterController.captureGhost(ghost2);
+        hunterController.captureGhost(ghost3);
+    
+        List<GhostModel> filteredGhosts = hunterController.filterGhostsByMonth(2, 2025);
+    
+        assertThat(filteredGhosts, hasSize(2));  
+        assertThat(filteredGhosts.get(0).getName(), is("Espectro del Faro"));
+        assertThat(filteredGhosts.get(1).getName(), is("Sombras del Castillo"));
+    }
+    
+    @Test
+    @DisplayName("Validar que no devuelve resultados cuando no hay fantasmas en el mes dado")
+    public void testFilterGhostsByMonth_NoResults() {
+        List<GhostModel> filteredGhosts = hunterController.filterGhostsByMonth(10, 2026); 
+        assertThat(filteredGhosts.isEmpty(), is(true));
+    }
    
 }

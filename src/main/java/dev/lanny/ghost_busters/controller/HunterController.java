@@ -1,7 +1,7 @@
 package dev.lanny.ghost_busters.controller;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 import dev.lanny.ghost_busters.model.GhostClass;
 import dev.lanny.ghost_busters.model.GhostModel;
@@ -28,5 +28,7 @@ public class HunterController {
     public List<GhostModel> filterGhostsByClass(GhostClass ghostClass) {
         return hunter.filterGhostsByClass(ghostClass);
     }
+
+   
 
 }
