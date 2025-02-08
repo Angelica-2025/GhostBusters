@@ -32,4 +32,11 @@ public class HunterModel {
                 .filter(ghost -> ghost.getGhostClass() == ghostClass)
                 .collect(Collectors.toList());
     }
+
+    public List<GhostModel> filterGhostsByMonth(int i, int j) {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'filterGhostsByMonth'");
+    }
+
+    
 }

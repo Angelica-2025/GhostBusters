@@ -2,7 +2,8 @@ package dev.lanny.ghost_busters.model;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 
 import java.util.ArrayList;
@@ -73,5 +74,27 @@ class HunterModelTest {
         List<GhostModel> capturedGhosts = newHunterModel.getCapturedGhosts();
 
         assertThat(capturedGhosts.isEmpty(), is(true));
+    }
+
+    @Test
+    @DisplayName("Filtrar fantasmas por mes y año con resultados")
+    public void testFilterGhostsByMonth_WithResults() {
+        List<GhostModel> filteredGhosts = hunterModel.filterGhostsByMonth(1, 2025);
+        assertThat(filteredGhosts, hasSize(2));
+        assertThat(filteredGhosts, contains(ghost1, ghost2));
+    }
+
+    @Test
+    @DisplayName("Filtrar fantasmas por mes y año sin resultados")
+    public void testFilterGhostsByMonth_NoResults() {
+        List<GhostModel> filteredGhosts = hunterModel.filterGhostsByMonth(2, 2025);
+        assertThat(filteredGhosts, is(empty()));
+    }
+
+    @Test
+    @DisplayName("Filtrar fantasmas por un mes de un año diferente")
+    public void testFilterGhostsByMonth_DifferentYear() {
+        List<GhostModel> filteredGhosts = hunterModel.filterGhostsByMonth(1, 2024);
+        assertThat(filteredGhosts, is(empty()));
     }
 }

@@ -1,17 +1,16 @@
 package dev.lanny.ghost_busters.model;
 
-
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class GhostClassTest {
 
     @Test
+    @DisplayName("Validar valores de las enumeraciones en GhostClass")
     public void testEnumValues() {
-        // Verificar los valores del enum
         assertThat(GhostClass.CLASS_I, is(GhostClass.CLASS_I));
         assertThat(GhostClass.CLASS_II, is(GhostClass.CLASS_II));
         assertThat(GhostClass.CLASS_III, is(GhostClass.CLASS_III));
@@ -22,8 +21,8 @@ public class GhostClassTest {
     }
 
     @Test
+    @DisplayName("Validar descripción de las clases de fantasmas")
     public void testGetDescription() {
-        // Verificar que el método getDescription() devuelve lo esperado
         assertThat(GhostClass.CLASS_I.getDescription(), is(" Manifestación menor"));
         assertThat(GhostClass.CLASS_II.getDescription(), is("Aparición móvil"));
         assertThat(GhostClass.CLASS_III.getDescription(), is("Entidad inteligente"));
@@ -34,8 +33,8 @@ public class GhostClassTest {
     }
 
     @Test
+    @DisplayName("Validar multiplicador de afinidad de las clases de fantasmas")
     public void testGetAffinityMultiplier() {
-        // Verificar que el método getAffinityMultiplier() devuelve el valor esperado
         assertThat(GhostClass.CLASS_I.getAffinityMultiplier(), is(1));
         assertThat(GhostClass.CLASS_II.getAffinityMultiplier(), is(2));
         assertThat(GhostClass.CLASS_III.getAffinityMultiplier(), is(3));
@@ -46,8 +45,8 @@ public class GhostClassTest {
     }
 
     @Test
+    @DisplayName("Validar método toString de las clases de fantasmas")
     public void testToString() {
-        // Verificar que el método toString() devuelve el formato esperado
         assertThat(GhostClass.CLASS_I.toString(), is("CLASS_I -  Manifestación menor"));
         assertThat(GhostClass.CLASS_II.toString(), is("CLASS_II - Aparición móvil"));
         assertThat(GhostClass.CLASS_III.toString(), is("CLASS_III - Entidad inteligente"));
@@ -57,9 +56,3 @@ public class GhostClassTest {
         assertThat(GhostClass.CLASS_VII.toString(), is("CLASS_VII - Entidad ultraterrena"));
     }
 }
-
-
-
-
-
-

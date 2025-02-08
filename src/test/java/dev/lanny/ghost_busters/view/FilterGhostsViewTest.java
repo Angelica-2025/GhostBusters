@@ -34,7 +34,7 @@ public class FilterGhostsViewTest {
     @Test
     @DisplayName("Se valida que se muestra el mensaje adecuado cuando no hay fantasmas de la clase seleccionada")
     public void testFilterGhostsByClass_NoGhosts() {
-        String simulatedInput = "2\n"; // Número de la clase en lugar del nombre
+        String simulatedInput = "2\n";
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
         scanner = new Scanner(System.in);
 
@@ -51,7 +51,7 @@ public class FilterGhostsViewTest {
                 "Aparece en tormentas", "2025-01-26");
         hunterController.captureGhost(ghost);
 
-        String simulatedInput = "2\n"; // Número de la clase
+        String simulatedInput = "2\n";
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
         scanner = new Scanner(System.in);
 
@@ -65,7 +65,7 @@ public class FilterGhostsViewTest {
     @Test
     @DisplayName("Se valida que se muestra un mensaje de error cuando la clase ingresada es inválida")
     public void testFilterGhostsByClass_InvalidClass() {
-        String simulatedInput = "10\n"; // Número fuera de rango
+        String simulatedInput = "10\n";
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
         scanner = new Scanner(System.in);
 
@@ -78,37 +78,31 @@ public class FilterGhostsViewTest {
     @Test
     @DisplayName("Se valida mensaje cuando no hay fantasmas capturados de la clase seleccionada")
     public void testFilterGhostsByClass_EmptyCapturedList() {
-        // Asegurarse de que no haya fantasmas capturados en el controlador
         hunterController = new HunterController(new HunterModel("Egon Spengler", new ArrayList<>()));
 
-        // Entrada simulada para la clase CLASS_I (número 1)
         String simulatedInput = "1\n";
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
         scanner = new Scanner(System.in);
 
-        // Llamar a la vista para filtrar fantasmas
         FilterGhostsView.filterGhostsByClass(hunterController, scanner);
 
-        // Capturar la salida
         String output = outputStream.toString();
-
-        // Aserciones
         assertThat(output, containsString("❌ No hay fantasmas de esta clase capturados."));
     }
 
     @Test
-@DisplayName("Se valida mensaje cuando la entrada del usuario está vacía")
-public void testFilterGhostsByClass_EmptyInput() {
-    String simulatedInput = "\n";
-    System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
-    scanner = new Scanner(System.in);
+    @DisplayName("Se valida mensaje cuando la entrada del usuario está vacía")
+    public void testFilterGhostsByClass_EmptyInput() {
+        String simulatedInput = "\n";
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+        scanner = new Scanner(System.in);
 
-    FilterGhostsView.filterGhostsByClass(hunterController, scanner);
-    String output = outputStream.toString();
+        FilterGhostsView.filterGhostsByClass(hunterController, scanner);
+        String output = outputStream.toString();
 
-    assertThat(output, containsString("Ingrese el número correspondiente a la clase: ❌ Entrada inválida. Por favor, ingrese un número válido."));
-}
-
+        assertThat(output, containsString(
+                "Ingrese el número correspondiente a la clase: ❌ Entrada inválida. Por favor, ingrese un número válido."));
+    }
 
     @Test
     @DisplayName("Se valida mensaje cuando la entrada del usuario contiene solo espacios")
@@ -120,7 +114,8 @@ public void testFilterGhostsByClass_EmptyInput() {
         FilterGhostsView.filterGhostsByClass(hunterController, scanner);
         String output = outputStream.toString();
 
-        assertThat(output, containsString("Ingrese el número correspondiente a la clase: ❌ Entrada inválida. Por favor, ingrese un número válido."));
+        assertThat(output, containsString(
+                "Ingrese el número correspondiente a la clase: ❌ Entrada inválida. Por favor, ingrese un número válido."));
     }
 
     @Test
@@ -133,7 +128,7 @@ public void testFilterGhostsByClass_EmptyInput() {
         hunterController.captureGhost(ghost1);
         hunterController.captureGhost(ghost2);
 
-        String simulatedInput = "2\n"; // Número de la clase
+        String simulatedInput = "2\n";
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
         scanner = new Scanner(System.in);
 
@@ -145,5 +140,4 @@ public void testFilterGhostsByClass_EmptyInput() {
         assertThat(output, containsString("- Fantasma 2 (Peligrosidad: HIGH - Amenaza de nivel alto)"));
     }
 
-    
 }
