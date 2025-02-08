@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class HunterModelTest {
@@ -18,6 +19,7 @@ class HunterModelTest {
     private GhostModel ghost3;
 
     @BeforeEach
+    @DisplayName("Configuración inicial de HunterModel con fantasmas capturados")
     void setUp() {
         ghost1 = new GhostModel("Phantom", GhostClass.CLASS_I, ThreatLevel.LOW, "Whispering", "2025-02-10");
         ghost2 = new GhostModel("Specter", GhostClass.CLASS_II, ThreatLevel.MEDIUM, "Invisibility", "2025-02-12");
@@ -30,6 +32,7 @@ class HunterModelTest {
     }
 
     @Test
+    @DisplayName("Validar que se puede capturar un fantasma")
     void testCaptureGhost() {
         hunterModel.captureGhost(ghost1);
         List<GhostModel> capturedGhosts = hunterModel.getCapturedGhosts();
@@ -38,17 +41,37 @@ class HunterModelTest {
     }
 
     @Test
+    @DisplayName("Validar que no se puede capturar un fantasma nulo")
     public void testFilterGhostsByClass() {
-      
+
         List<GhostModel> filteredGhosts = hunterModel.filterGhostsByClass(GhostClass.CLASS_I);
-        assertThat(filteredGhosts.size(), is(2)); 
+        assertThat(filteredGhosts.size(), is(2));
         assertThat(filteredGhosts.get(0).getName(), is("Phantom"));
         assertThat(filteredGhosts.get(1).getName(), is("Wraith"));
     }
 
     @Test
-    public void testFilterGhostsByClass_NoMatches() {
+    @DisplayName("Validar que se filtran fantasmas por clase sin coincidencias")
+    void testFilterGhostsByClass_NoMatches() {
         List<GhostModel> filteredGhosts = hunterModel.filterGhostsByClass(GhostClass.CLASS_III);
+
         assertThat(filteredGhosts.isEmpty(), is(true));
+    }
+
+    @Test
+    @DisplayName("Validar que getCapturedGhosts devuelve una copia de la lista")
+    void testGetCapturedGhosts_Immutable() {
+        List<GhostModel> capturedGhosts = hunterModel.getCapturedGhosts();
+        capturedGhosts.clear(); 
+        assertThat(hunterModel.getCapturedGhosts(), hasSize(3)); 
+    }
+
+    @Test
+    @DisplayName("Validar que se inicializa la lista de fantasmas si se pasa null al constructor")
+    void testConstructor_NullCapturedGhosts() {
+        HunterModel newHunterModel = new HunterModel("New Hunter", null);
+        List<GhostModel> capturedGhosts = newHunterModel.getCapturedGhosts();
+
+        assertThat(capturedGhosts.isEmpty(), is(true));
     }
 }

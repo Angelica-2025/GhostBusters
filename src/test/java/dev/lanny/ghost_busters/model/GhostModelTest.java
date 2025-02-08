@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GhostModelTest {
     @Test
-    @DisplayName("Validar que un fantasma se crea correctamente con datos válidos")
+    @DisplayName("Se valida que un fantasma se crea correctamente con datos válidos")
     public void testGhostCreationSuccess() {
         GhostModel ghost = new GhostModel("Phantom", GhostClass.CLASS_I, ThreatLevel.LOW, "Whispering", "2025-02-10");
 
@@ -26,7 +26,7 @@ public class GhostModelTest {
     }
 
     @Test
-    @DisplayName("Validar que no se puede crear un fantasma con un nombre vacío")
+    @DisplayName("Se valida que no se puede crear un fantasma con un nombre vacío")
     public void testInvalidGhostCreation_EmptyName() {
 
         Exception exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class,
@@ -36,7 +36,7 @@ public class GhostModelTest {
     }
 
     @Test
-    @DisplayName("Validar que no se puede crear un fantasma con una fecha inválida")
+    @DisplayName("Se valida que no se puede crear un fantasma con una fecha inválida")
     public void testInvalidGhostCreation_InvalidDate() {
 
         Exception exception = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class,
@@ -46,7 +46,7 @@ public class GhostModelTest {
     }
 
     @Test
-    @DisplayName("Validar que no se permite un specialAbility vacío")
+    @DisplayName("Se valida que no se permite un specialAbility vacío")
     public void testInvalidGhostCreation_EmptySpecialAbility() {
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -57,7 +57,7 @@ public class GhostModelTest {
     }
 
     @Test
-    @DisplayName("Validar que no se permite crear un fantasma con una clase nula")
+    @DisplayName("Se valida que no se permite crear un fantasma con una clase nula")
     void testNullGhostClassThrowsException() {
 
         Exception exception = assertThrows(NullPointerException.class, () -> {
@@ -67,7 +67,7 @@ public class GhostModelTest {
     }
 
     @Test
-    @DisplayName("Validar que no se permite crear un fantasma con un nivel de amenaza nulo")
+    @DisplayName("Se valida que no se permite crear un fantasma con un nivel de amenaza nulo")
     void testNullThreatLevelThrowsException() {
 
         Exception exception = assertThrows(NullPointerException.class, () -> {
@@ -77,7 +77,7 @@ public class GhostModelTest {
     }
 
     @Test
-    @DisplayName("Validar que cada fantasma generado tiene un ID único")
+    @DisplayName("Se valida que cada fantasma generado tiene un ID único")
     void testUniqueIDs() {
 
         GhostModel ghost1 = new GhostModel("Phantom", GhostClass.CLASS_VI, ThreatLevel.HIGH, "Invisibility",
@@ -87,7 +87,7 @@ public class GhostModelTest {
     }
 
     @Test
-    @DisplayName("Validar que los IDs generados son únicos y consecutivos")
+    @DisplayName("Se valida que los IDs generados son únicos y consecutivos")
     public void testUniqueIDs_Consecutive() {
         GhostModel ghost1 = new GhostModel("Phantom", GhostClass.CLASS_III, ThreatLevel.HIGH, "Haunting", "2025-02-10");
         GhostModel ghost2 = new GhostModel("Specter", GhostClass.CLASS_II, ThreatLevel.MEDIUM, "Phasing", "2025-02-12");
@@ -96,16 +96,16 @@ public class GhostModelTest {
     }
 
     @Test
-    @DisplayName("Validar que equals funciona correctamente para fantasmas con el mismo ID")
+    @DisplayName("Se valida que equals funciona correctamente para fantasmas con el mismo ID")
     public void testEquals_SameID() {
         GhostModel ghost1 = new GhostModel("Phantom", GhostClass.CLASS_III, ThreatLevel.HIGH, "Haunting", "2025-02-10");
-        GhostModel ghost2 = ghost1; // Mismo objeto
+        GhostModel ghost2 = ghost1;
 
         assertThat(ghost1.equals(ghost2), is(true));
     }
 
     @Test
-    @DisplayName("Validar que equals devuelve false para fantasmas con diferentes IDs")
+    @DisplayName("Se valida que equals devuelve false para fantasmas con diferentes IDs")
     public void testEquals_DifferentIDs() {
         GhostModel ghost1 = new GhostModel("Phantom", GhostClass.CLASS_III, ThreatLevel.HIGH, "Haunting", "2025-02-10");
         GhostModel ghost2 = new GhostModel("Specter", GhostClass.CLASS_II, ThreatLevel.MEDIUM, "Phasing", "2025-02-12");
@@ -114,11 +114,63 @@ public class GhostModelTest {
     }
 
     @Test
-    @DisplayName("Validar que hashCode coincide para objetos iguales")
+    @DisplayName("Se valida que equals devuelve false para objetos de la misma clase con diferente ID")
+    void testEquals_DifferentID() {
+        GhostModel ghost1 = new GhostModel("Phantom", GhostClass.CLASS_I, ThreatLevel.MEDIUM, "Haunting", "2025-02-10");
+        GhostModel ghost2 = new GhostModel("Specter", GhostClass.CLASS_II, ThreatLevel.HIGH, "Phasing", "2025-02-11");
+        boolean result = ghost1.equals(ghost2);
+        assertThat(result, is(false));
+    }
+
+    @Test
+    @DisplayName("Se valida que equals devuelve false cuando el objeto comparado es null")
+    void testEquals_NullObject() {
+        GhostModel ghost = new GhostModel("Phantom", GhostClass.CLASS_I, ThreatLevel.MEDIUM, "Haunting", "2025-02-10");
+        boolean result = ghost.equals(null);
+        assertThat(result, is(false));
+    }
+
+    @Test
+    @DisplayName("Se valida que validateNotEmpty lanza excepción con valor null")
+    void testValidateNotEmpty_NullValue() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new GhostModel(null, GhostClass.CLASS_I, ThreatLevel.LOW, "Ability", "2025-02-10");
+        });
+        assertThat(exception.getMessage(), is("El nombre del fantasma no puede estar vacío."));
+    }
+
+    @Test
+    @DisplayName("Se valida que validateNotEmpty lanza excepción con valor vacío")
+    void testValidateNotEmpty_EmptyValue() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new GhostModel("", GhostClass.CLASS_I, ThreatLevel.LOW, "Ability", "2025-02-10");
+        });
+        assertThat(exception.getMessage(), is("El nombre del fantasma no puede estar vacío."));
+    }
+
+    @Test
+    @DisplayName("Se valida que validateNotEmpty lanza excepción con valor de solo espacios en blanco")
+    void testValidateNotEmpty_WhitespaceValue() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new GhostModel("   ", GhostClass.CLASS_I, ThreatLevel.LOW, "Ability", "2025-02-10");
+        });
+        assertThat(exception.getMessage(), is("El nombre del fantasma no puede estar vacío."));
+    }
+
+    @Test
+    @DisplayName("Se valida que validateNotEmpty acepta valores válidos")
+    void testValidateNotEmpty_ValidValue() {
+        GhostModel ghost = new GhostModel("Phantom", GhostClass.CLASS_I, ThreatLevel.LOW, "Ability", "2025-02-10");
+        assertThat(ghost.getName(), is("Phantom"));
+    }
+
+    @Test
+    @DisplayName("Se valida que hashCode coincide para objetos iguales")
     public void testHashCode_EqualsConsistency() {
         GhostModel ghost1 = new GhostModel("Phantom", GhostClass.CLASS_III, ThreatLevel.HIGH, "Haunting", "2025-02-10");
-        GhostModel ghost2 = ghost1; // Mismo objeto
+        GhostModel ghost2 = ghost1;
 
         assertThat(ghost1.hashCode(), is(ghost2.hashCode()));
     }
+
 }
