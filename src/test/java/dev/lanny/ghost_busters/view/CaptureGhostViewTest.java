@@ -8,11 +8,11 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import dev.lanny.ghost_busters.controller.HunterController;
 import dev.lanny.ghost_busters.model.HunterModel;
-
 
 public class CaptureGhostViewTest {
 
@@ -20,7 +20,7 @@ public class CaptureGhostViewTest {
     private ByteArrayOutputStream outputStream;
 
     @BeforeEach
-
+    @DisplayName("Configuración inicial del controlador y flujo de salida")
     public void setUp() {
 
         HunterModel hunterModel = new HunterModel("Egon Spengler", new ArrayList<>());
@@ -31,7 +31,7 @@ public class CaptureGhostViewTest {
     }
 
     @Test
-
+    @DisplayName("Validar captura exitosa de un fantasma")
     public void testCaptureGhostSuccess() {
 
         String simulatedInput = "asdf\n2\n3\nsfsdfv\n2025-02-03\n";
@@ -51,7 +51,7 @@ public class CaptureGhostViewTest {
     }
 
     @Test
-
+    @DisplayName("Validar manejo de entrada de fecha inválida")
     public void testInvalidDateInput() {
         String userInput = "Phantom A\n2\n2\nHaunting Ability\nINVALID_DATE\n2025-03-15\n";
         System.setIn(new ByteArrayInputStream(userInput.getBytes()));
