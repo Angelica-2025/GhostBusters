@@ -29,6 +29,13 @@ public class HunterController {
         return hunter.filterGhostsByClass(ghostClass);
     }
 
+    public List<GhostModel> filterGhostsByMonth(int month, int year) {
+        return hunter.getCapturedGhosts().stream()
+                .filter(ghost -> ghost.getCaptureDate().getMonthValue() == month 
+                        && ghost.getCaptureDate().getYear() == year)
+                .collect(Collectors.toList());
+    }
+
    
 
 }
