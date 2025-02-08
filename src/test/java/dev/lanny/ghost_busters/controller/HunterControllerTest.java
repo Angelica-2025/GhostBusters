@@ -5,11 +5,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import dev.lanny.ghost_busters.model.GhostClass;
@@ -36,6 +38,16 @@ public class HunterControllerTest {
     }
 
     @Test
+    @DisplayName("Validar que el constructor lanza excepción con HunterModel nulo")
+    public void testConstructor_NullHunterModel() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new HunterController(null);
+        });
+        assertThat(exception.getMessage(), is("HunterModel no puede ser nulo"));
+    }
+
+    @Test
+    @DisplayName("Validar que un fantasma puede ser capturado correctamente")
     public void testCaptureGhost_Success() {
         hunterController.captureGhost(ghost1);
 
@@ -45,12 +57,21 @@ public class HunterControllerTest {
     }
 
     @Test
+    @DisplayName("Validar que inicialmente no hay fantasmas capturados")
     public void testGetCapturedGhostsInitiallyEmpty() {
         List<GhostModel> capturedGhosts = hunterController.getCapturedGhosts();
         assertThat(capturedGhosts, is(empty()));
     }
 
     @Test
+    @DisplayName("Validar que no se puede capturar un fantasma nulo")
+    public void testCaptureGhost_Null() {
+        hunterController.captureGhost(null);
+        assertThat(hunterController.getCapturedGhosts().isEmpty(), is(true));
+    }
+
+    @Test
+    @DisplayName("Validar que los fantasmas capturados aparecen en la lista")
     public void testGetCapturedGhostsAfterCapture() {
         GhostModel ghost = new GhostModel("Marinero", GhostClass.CLASS_I, ThreatLevel.MEDIUM, "Aparece en tormentas",
                 "2025-02-03");
@@ -60,21 +81,31 @@ public class HunterControllerTest {
     }
 
     @Test
-public void testFilterGhostsByClass() {
-    
-    hunterController.captureGhost(ghost1);  
-    hunterController.captureGhost(ghost3);  
- 
-    List<GhostModel> filteredGhosts = hunterController.filterGhostsByClass(GhostClass.CLASS_I);    
-    assertThat(filteredGhosts.size(), is(2)); 
-    assertThat(filteredGhosts.get(0).getName(), is("Marinero"));
-    assertThat(filteredGhosts.get(1).getName(), is("Wraith"));
-}
+    @DisplayName("Validar que se pueden filtrar fantasmas por clase con coincidencias")
+    public void testFilterGhostsByClass() {
+
+        hunterController.captureGhost(ghost1);
+        hunterController.captureGhost(ghost3);
+
+        List<GhostModel> filteredGhosts = hunterController.filterGhostsByClass(GhostClass.CLASS_I);
+        assertThat(filteredGhosts.size(), is(2));
+        assertThat(filteredGhosts.get(0).getName(), is("Marinero"));
+        assertThat(filteredGhosts.get(1).getName(), is("Wraith"));
+    }
+
     @Test
+    @DisplayName("Validar que filtrar fantasmas por clase sin coincidencias devuelve una lista vacía")
     public void testFilterGhostsByClass_NoMatches() {
 
         List<GhostModel> filteredGhosts = hunterController.filterGhostsByClass(GhostClass.CLASS_III);
         assertThat(filteredGhosts.isEmpty(), is(true));
     }
+    @Test
+    @DisplayName("Validar que filtrar fantasmas por clase en una lista vacía devuelve lista vacía")
+    public void testFilterGhostsByClass_EmptyList() {
+        List<GhostModel> filteredGhosts = hunterController.filterGhostsByClass(GhostClass.CLASS_I);
+        assertThat(filteredGhosts.isEmpty(), is(true));
+    }
 
+   
 }

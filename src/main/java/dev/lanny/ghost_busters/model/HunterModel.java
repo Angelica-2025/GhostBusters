@@ -19,7 +19,6 @@ public class HunterModel {
         }
     }
 
-
     public List<GhostModel> getCapturedGhosts() {
         return new ArrayList<>(capturedGhosts);
     }
@@ -30,7 +29,7 @@ public class HunterModel {
 
     public List<GhostModel> filterGhostsByClass(GhostClass ghostClass) {
         return capturedGhosts.stream()
-        .filter(ghost -> ghost.getGhostClass() == ghostClass)
-        .collect(Collectors.toList());
+                .filter(ghost -> ghost.getGhostClass() == ghostClass)
+                .collect(Collectors.toList());
     }
 }

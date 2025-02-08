@@ -51,7 +51,7 @@ public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GhostModel that = (GhostModel) o;
-    return id == that.id;  // Asumiendo que `id` identifica de forma única a un fantasma
+    return id == that.id; 
 }
 
 @Override
