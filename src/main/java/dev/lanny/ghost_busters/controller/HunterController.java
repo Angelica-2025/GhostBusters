@@ -36,8 +36,8 @@ public class HunterController {
                 .collect(Collectors.toList());
     }
 
-    public boolean freedomGhost(int id) {
-        throw new UnsupportedOperationException("Unimplemented method 'freedomGhost'");
+    public boolean freedomGhost(int ghostId) {
+        return hunter.deleteGhost(ghostId);
     }
 
 }
