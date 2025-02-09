@@ -105,7 +105,8 @@ Fantasma "Espíritu del Pescador de Lastres" capturado exitosamente con nivel de
 ## ✅ Entregables
 - 📌 **Repositorio de GitHub:** https://github.com/LannyRivero/GhostBusters.git
 - 📌 **Diagrama de Clases:** _![image](https://github.com/user-attachments/assets/adf6f4d2-9cf6-4653-bfca-e53176a2dd18)_
-- 📌 **Cobertura de Pruebas:** _(Captura de pantalla `coverage_report.png` mostrando el 70% de cobertura)_
+- 📌 **Cobertura de Pruebas:** _![image](https://github.com/user-attachments/assets/0e152ced-3ba3-46c5-b5ee-f1b5f0102468)_
+
 
 ## 📢 Contribuciones
 ¡Cualquier cazafantasmas es bienvenido a colaborar en este proyecto! Para contribuir:
