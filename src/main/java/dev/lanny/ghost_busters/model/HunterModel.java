@@ -24,10 +24,6 @@ public class HunterModel {
         return new ArrayList<>(capturedGhosts);
     }
 
-    // public boolean freeGhost(int ghostId) {
-    // return capturedGhosts.removeIf(ghost -> ghost.getId() == ghostId);
-    // }
-
     public List<GhostModel> filterGhostsByClass(GhostClass ghostClass) {
         return capturedGhosts.stream()
                 .filter(ghost -> ghost.getGhostClass() == ghostClass)
@@ -43,8 +39,8 @@ public class HunterModel {
                 .collect(Collectors.toList());
     }
 
-    public boolean deleteGhost(int id) {
-        throw new UnsupportedOperationException("Unimplemented method 'deleteGhost'");
+    public boolean deleteGhost(int ghostId) {
+        return capturedGhosts.removeIf(ghost -> ghost.getId() == ghostId);
     }
 
 }
