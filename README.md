@@ -102,10 +102,9 @@ Fantasma "Espíritu del Pescador de Lastres" capturado exitosamente con nivel de
  ┣ 📜 diagram.png (Diagrama de Clases)
  ┗ 📜 coverage_report.png (Cobertura de Pruebas)
 ```
-
 ## ✅ Entregables
-- 📌 **Repositorio de GitHub:** [Enlace al repositorio](#)
-- 📌 **Diagrama de Clases:** _(Captura de pantalla incluida en `diagram.png`)_
+- 📌 **Repositorio de GitHub:** https://github.com/LannyRivero/GhostBusters.git
+- 📌 **Diagrama de Clases:** _![image](https://github.com/user-attachments/assets/adf6f4d2-9cf6-4653-bfca-e53176a2dd18)_
 - 📌 **Cobertura de Pruebas:** _(Captura de pantalla `coverage_report.png` mostrando el 70% de cobertura)_
 
 ## 📢 Contribuciones
