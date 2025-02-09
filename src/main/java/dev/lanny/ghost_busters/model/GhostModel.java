@@ -45,6 +45,19 @@ public class GhostModel {
             throw new IllegalArgumentException("La fecha debe estar en formato YYYY-MM-DD.");
         }
     }
+    
+    @Override
+public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GhostModel that = (GhostModel) o;
+    return id == that.id; 
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(id);
+}
 }
 
     
