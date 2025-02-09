@@ -6,6 +6,7 @@ import dev.lanny.ghost_busters.controller.HunterController;
 import dev.lanny.ghost_busters.model.GhostClass;
 import dev.lanny.ghost_busters.model.GhostModel;
 
+
 public class FilterGhostsView {
 
     public static void filterGhostsByClass(HunterController hunterController, Scanner scanner) {
@@ -45,5 +46,7 @@ public class FilterGhostsView {
             System.out.println(e.getMessage());
         }
     }
+
+    
 
 }
