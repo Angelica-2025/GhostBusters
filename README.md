@@ -93,8 +93,7 @@ Fantasma "Espíritu del Pescador de Lastres" capturado exitosamente con nivel de
  ┃ ┣ 📂 dev.lanny.view
  ┃ ┃ ┣ 📜 MainView.java
  ┃ ┃ ┣ 📜 CaptureGhostView.java
- ┃ ┃ ┗ 📜 DeleteGhostView.java
- ┃ ┣ 📂 dev.lanny.utils
+ ┃ ┃ ┗ 📜 DeleteGhostView.java ┃ 
  ┃ ┣ 📂 tests
  ┃ ┣ 📜 GhostModelTests.java
  ┃ ┣ 📜 HunterModelTests.java
