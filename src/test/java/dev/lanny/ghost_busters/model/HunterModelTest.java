@@ -1,6 +1,8 @@
 package dev.lanny.ghost_busters.model;
 
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.empty;
@@ -100,5 +102,17 @@ class HunterModelTest {
     public void testFilterGhostsByMonth_DifferentYear() {
         List<GhostModel> filteredGhosts = hunterModel.filterGhostsByMonth(1, 2024);
         assertThat(filteredGhosts, is(empty()));
+    }
+
+    @Test
+    @DisplayName("validar que elimine un fantasma correctamente")
+    public void testDeleteGhost_Succes() {
+        GhostModel ghost = new GhostModel("Marck", GhostClass.CLASS_III, ThreatLevel.MEDIUM, "volar", "2025-09-02");
+
+        hunterModel.captureGhost(ghost);
+        boolean succes = hunterModel.deleteGhost(ghost.getId());
+        assertThat(succes, is(true));
+        List<GhostModel> capturedGhosts = hunterModel.getCapturedGhosts();
+        assertThat(capturedGhosts, not(hasItem(ghost)));
     }
 }

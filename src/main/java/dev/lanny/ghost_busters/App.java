@@ -1,6 +1,5 @@
 package dev.lanny.ghost_busters;
 
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,11 +7,10 @@ import dev.lanny.ghost_busters.view.MainView;
 import dev.lanny.ghost_busters.controller.HunterController;
 import dev.lanny.ghost_busters.model.HunterModel;
 
-
 public final class App {
-    
+
     private App() {
-      
+
     }
 
     public static void main(String[] args) {
@@ -20,7 +18,7 @@ public final class App {
         HunterModel hunterModel = new HunterModel("Egon Spengler", new ArrayList<>());
         HunterController hunterController = new HunterController(hunterModel);
         MainView mainView = new MainView(hunterController, scanner);
-        
+
         try {
             mainView.showMainMenu();
         } catch (Exception e) {
@@ -31,4 +29,3 @@ public final class App {
         }
     }
 }
-

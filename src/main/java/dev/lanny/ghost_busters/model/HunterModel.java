@@ -24,10 +24,6 @@ public class HunterModel {
         return new ArrayList<>(capturedGhosts);
     }
 
-    public boolean freeGhost(int ghostId) {
-        return capturedGhosts.removeIf(ghost -> ghost.getId() == ghostId);
-    }
-
     public List<GhostModel> filterGhostsByClass(GhostClass ghostClass) {
         return capturedGhosts.stream()
                 .filter(ghost -> ghost.getGhostClass() == ghostClass)
@@ -35,13 +31,16 @@ public class HunterModel {
     }
 
     public List<GhostModel> filterGhostsByMonth(int month, int year) {
-    return capturedGhosts.stream()
-            .filter(ghost -> {
-                LocalDate date = ghost.getCaptureDate();
-                return date != null && date.getMonthValue() == month && date.getYear() == year;
-            })
-            .collect(Collectors.toList());
-}
+        return capturedGhosts.stream()
+                .filter(ghost -> {
+                    LocalDate date = ghost.getCaptureDate();
+                    return date != null && date.getMonthValue() == month && date.getYear() == year;
+                })
+                .collect(Collectors.toList());
+    }
 
-    
+    public boolean deleteGhost(int ghostId) {
+        return capturedGhosts.removeIf(ghost -> ghost.getId() == ghostId);
+    }
+
 }
