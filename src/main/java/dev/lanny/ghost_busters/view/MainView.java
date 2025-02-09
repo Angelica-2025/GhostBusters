@@ -48,9 +48,9 @@ public class MainView {
                         case 4:
                             FilterGhostsView.filterGhostsByClass(hunterController, scanner);
                             break;
-                        case 5:
-                            System.out.println("Gracias por proteger Asturias. ¡Hasta la próxima!");
-                            return;
+                            case 5:
+                            FilterGhostsView.filterGhostsByMonth(hunterController, scanner);  // ✅ Nuevo método agregado
+                            break;
                         case 6:
                             System.out.println("Gracias por proteger Asturias. ¡Hasta la próxima!");
                             return;
